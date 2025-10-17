@@ -38,6 +38,11 @@ body {
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  
+}
+
+label {
+  color: #ddd;
 }
 
 .cards {
@@ -76,3 +81,5 @@ body {
 .download-btn:hover {
   background-color: #0056b3;
 }
+
+.
