@@ -38,12 +38,13 @@ body {
   justify-content: center;
   gap: 20px;
   flex-wrap: wrap;
+  label {
+  color: #ddd;
+}
   
 }
 
-label {
-  color: #ddd;
-}
+
 
 .cards {
   display: flex;
@@ -82,4 +83,3 @@ label {
   background-color: #0056b3;
 }
 
-.
