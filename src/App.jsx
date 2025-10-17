@@ -114,5 +114,8 @@ function App() {
     </div>
   );
 }
+<footer>
+  Developed by Charindu Bandaranayake
+</footer>
 
 export default App;
