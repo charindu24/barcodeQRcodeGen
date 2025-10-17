@@ -1,27 +1,13 @@
-/* Existing styles ... */
-
-.color-picker label,
-.type-selection label {
-  color: #000; /* black label text */
-  font-weight: 500;
-}
-
-/* Footer */
-.footer {
-  margin-top: 50px;
-  padding: 20px;
-  text-align: center;
-  font-weight: bold;
-  color: white;
-  font-size: 1rem;
-
-  /* Gradient background */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  justify-content: center; /* Horizontal center */
+  align-items: center;     /* Vertical center */
   background: linear-gradient(-45deg, #ff6b6b, #f7d794, #6a89cc, #38ada9);
   background-size: 400% 400%;
-
-  /* Animation */
   animation: gradientBG 15s ease infinite;
-  border-radius: 12px;
 }
 
 /* Gradient animation */
@@ -29,4 +15,146 @@
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Container */
+.container {
+  max-width: 900px;
+  width: 90%; /* responsive */
+  padding: 30px 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.85); /* Transparent card background */
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* ===========================
+   App Container
+=========================== */
+.container {
+  max-width: 900px;
+  width: 90%; /* Makes it responsive */
+  padding: 30px 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* ===========================
+   App Title
+=========================== */
+.title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* ===========================
+   Input Fields
+=========================== */
+.input-field {
+  padding: 10px 15px;
+  width: 300px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: #007BFF;
+}
+
+/* ===========================
+   Color Picker & Type Selection
+=========================== */
+.color-picker,
+.type-selection {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Labels color */
+.color-picker label,
+.type-selection label {
+  color: #000; /* Black text for readability */
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ===========================
+   QR & Barcode Cards
+=========================== */
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+/* ===========================
+   Buttons
+=========================== */
+.download-btn {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #007BFF;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.download-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* ===========================
+   Footer
+=========================== */
+.footer {
+  margin-top: 30px;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+}
+
+/* ===========================
+   Responsive Design
+=========================== */
+@media (max-width: 768px) {
+  .cards {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .input-field {
+    width: 90%;
+  }
 }
