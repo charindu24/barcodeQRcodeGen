@@ -1,85 +1,32 @@
-body {
-  margin: 0;
-  font-family: 'Arial', sans-serif;
-  background: #f5f5f5;
+/* Existing styles ... */
+
+.color-picker label,
+.type-selection label {
+  color: #000; /* black label text */
+  font-weight: 500;
 }
 
-.container {
-  max-width: 900px;
-  margin: 50px auto;
+/* Footer */
+.footer {
+  margin-top: 50px;
   padding: 20px;
   text-align: center;
-}
-
-.title {
-  font-size: 2rem;
-  margin-bottom: 30px;
-  color: #333;
-}
-
-.input-field {
-  padding: 10px 15px;
-  width: 300px;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.3s;
-}
-
-.input-field:focus {
-  outline: none;
-  border-color: #007BFF;
-}
-
-.color-picker,
-.type-selection {
-  margin: 20px 0;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  label {
-  color: #ddd;
-}
-  
-}
-
-
-
-.cards {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  margin-top: 30px;
-}
-
-.card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  text-align: center;
-  transition: transform 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.download-btn {
-  margin-top: 15px;
-  padding: 8px 16px;
-  background-color: #007BFF;
-  border: none;
+  font-weight: bold;
   color: white;
   font-size: 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s;
+
+  /* Gradient background */
+  background: linear-gradient(-45deg, #ff6b6b, #f7d794, #6a89cc, #38ada9);
+  background-size: 400% 400%;
+
+  /* Animation */
+  animation: gradientBG 15s ease infinite;
+  border-radius: 12px;
 }
 
-.download-btn:hover {
-  background-color: #0056b3;
+/* Gradient animation */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-

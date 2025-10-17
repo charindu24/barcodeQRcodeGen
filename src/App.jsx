@@ -6,8 +6,11 @@ import './App.css';
 function App() {
   const [text, setText] = useState('');
   const [qrColor, setQrColor] = useState('#000000');
+  const [qrBgColor, setQrBgColor] = useState('#ffffff');
   const [barcodeColor, setBarcodeColor] = useState('#000000');
-  const [barcodeType, setBarcodeType] = useState('CODE128'); // default 1D type
+  const [barcodeTextColor, setBarcodeTextColor] = useState('#000000');
+  const [barcodeType, setBarcodeType] = useState('CODE128');
+
   const qrRef = useRef();
   const barcodeRef = useRef();
 
@@ -47,7 +50,6 @@ function App() {
     <div className="container">
       <h1 className="title">Custom QR & Barcode Generator</h1>
 
-      {/* Input */}
       <input
         type="text"
         placeholder="Enter text or number"
@@ -56,19 +58,25 @@ function App() {
         className="input-field"
       />
 
-      {/* Color pickers */}
       <div className="color-picker">
         <label>
           QR Color:
           <input type="color" value={qrColor} onChange={(e) => setQrColor(e.target.value)} />
         </label>
         <label>
+          QR Background:
+          <input type="color" value={qrBgColor} onChange={(e) => setQrBgColor(e.target.value)} />
+        </label>
+        <label>
           Barcode Color:
           <input type="color" value={barcodeColor} onChange={(e) => setBarcodeColor(e.target.value)} />
         </label>
+        <label>
+          Barcode Text Color:
+          <input type="color" value={barcodeTextColor} onChange={(e) => setBarcodeTextColor(e.target.value)} />
+        </label>
       </div>
 
-      {/* Barcode type selection */}
       <div className="type-selection">
         <label>
           Barcode Type:
@@ -85,37 +93,35 @@ function App() {
 
       {text && (
         <div className="cards">
-          {/* QR Code Card */}
           <div className="card" ref={qrRef}>
             <h3>QR Code</h3>
-            <QRCodeCanvas value={text} size={200} fgColor={qrColor} />
-            <button className="download-btn" onClick={downloadQRCode}>
-              Download QR
-            </button>
+            <QRCodeCanvas value={text} size={200} fgColor={qrColor} bgColor={qrBgColor} />
+            <button className="download-btn" onClick={downloadQRCode}>Download QR</button>
           </div>
 
-          {/* Barcode Card */}
           <div className="card" ref={barcodeRef}>
             <h3>Barcode ({barcodeType})</h3>
             <Barcode
               value={text}
               format={barcodeType}
               lineColor={barcodeColor}
+              text={text}
+              textColor={barcodeTextColor}
               width={2}
               height={100}
               displayValue={true}
             />
-            <button className="download-btn" onClick={downloadBarcode}>
-              Download Barcode
-            </button>
+            <button className="download-btn" onClick={downloadBarcode}>Download Barcode</button>
           </div>
         </div>
       )}
+
+      {/* Footer */}
+      <footer className="footer">
+        &copy; 2025 Charindu Bandaranayake
+      </footer>
     </div>
   );
 }
-<footer>
-  Developed by Charindu Bandaranayake
-</footer>
 
 export default App;
