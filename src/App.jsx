@@ -10,11 +10,15 @@ function App() {
   const [barcodeColor, setBarcodeColor] = useState('#000000');
   const [barcodeTextColor, setBarcodeTextColor] = useState('#000000');
   const [barcodeType, setBarcodeType] = useState('CODE128');
+  const [showQR, setShowQR] = useState(true);
+  const [showBarcode, setShowBarcode] = useState(true);
+  const [showBarcodeText, setShowBarcodeText] = useState(true);
 
   const qrRef = useRef();
   const barcodeRef = useRef();
 
   const downloadQRCode = () => {
+    if (!text) return;
     const canvas = qrRef.current.querySelector('canvas');
     const url = canvas.toDataURL('image/png');
     const link = document.createElement('a');
@@ -24,6 +28,7 @@ function App() {
   };
 
   const downloadBarcode = () => {
+    if (!text) return;
     const svg = barcodeRef.current.querySelector('svg');
     const xml = new XMLSerializer().serializeToString(svg);
     const svg64 = btoa(xml);
@@ -50,6 +55,7 @@ function App() {
     <div className="container">
       <h1 className="title">Custom QR & Barcode Generator</h1>
 
+      {/* Input */}
       <input
         type="text"
         placeholder="Enter text or number"
@@ -58,54 +64,94 @@ function App() {
         className="input-field"
       />
 
-      <div className="color-picker">
-        <label>
-          QR Color:
-          <input type="color" value={qrColor} onChange={(e) => setQrColor(e.target.value)} />
-        </label>
-        <label>
-          QR Background:
-          <input type="color" value={qrBgColor} onChange={(e) => setQrBgColor(e.target.value)} />
-        </label>
-        <label>
-          Barcode Color:
-          <input type="color" value={barcodeColor} onChange={(e) => setBarcodeColor(e.target.value)} />
-        </label>
-        <label>
-          Barcode Text Color:
-          <input type="color" value={barcodeTextColor} onChange={(e) => setBarcodeTextColor(e.target.value)} />
-        </label>
-      </div>
-
+      {/* Show / Hide QR or Barcode */}
       <div className="type-selection">
         <label>
-          Barcode Type:
-          <select value={barcodeType} onChange={(e) => setBarcodeType(e.target.value)}>
-            <option value="CODE128">Code128</option>
-            <option value="CODE39">Code39</option>
-            <option value="EAN13">EAN-13</option>
-            <option value="EAN8">EAN-8</option>
-            <option value="UPC">UPC</option>
-            <option value="ITF">Interleaved 2 of 5</option>
-          </select>
+          <input
+            type="checkbox"
+            checked={showQR}
+            onChange={(e) => setShowQR(e.target.checked)}
+          /> Show QR Code
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={showBarcode}
+            onChange={(e) => setShowBarcode(e.target.checked)}
+          /> Show Barcode
         </label>
       </div>
 
-      {text && (
-        <div className="cards">
+      {/* Color Pickers */}
+      <div className="color-picker">
+        {showQR && (
+          <>
+            <label>
+              QR Color:
+              <input type="color" value={qrColor} onChange={(e) => setQrColor(e.target.value)} />
+            </label>
+            <label>
+              QR Background:
+              <input type="color" value={qrBgColor} onChange={(e) => setQrBgColor(e.target.value)} />
+            </label>
+          </>
+        )}
+        {showBarcode && (
+          <>
+            <label>
+              Barcode Color:
+              <input type="color" value={barcodeColor} onChange={(e) => setBarcodeColor(e.target.value)} />
+            </label>
+            <label>
+              Barcode Text Color:
+              <input type="color" value={barcodeTextColor} onChange={(e) => setBarcodeTextColor(e.target.value)} />
+            </label>
+          </>
+        )}
+      </div>
+
+      {/* Barcode Type & Toggle Text */}
+      {showBarcode && (
+        <div className="type-selection">
+          <label>
+            Barcode Type:
+            <select value={barcodeType} onChange={(e) => setBarcodeType(e.target.value)}>
+              <option value="CODE128">Code128</option>
+              <option value="CODE39">Code39</option>
+              <option value="EAN13">EAN-13</option>
+              <option value="EAN8">EAN-8</option>
+              <option value="UPC">UPC</option>
+              <option value="ITF">Interleaved 2 of 5</option>
+            </select>
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={showBarcodeText}
+              onChange={(e) => setShowBarcodeText(e.target.checked)}
+            /> Show Barcode Text
+          </label>
+        </div>
+      )}
+
+      {/* Cards */}
+      <div className="cards">
+        {showQR && text && (
           <div className="card" ref={qrRef}>
             <h3>QR Code</h3>
             <QRCodeCanvas value={text} size={200} fgColor={qrColor} bgColor={qrBgColor} />
             <button className="download-btn" onClick={downloadQRCode}>Download QR</button>
           </div>
+        )}
 
+        {showBarcode && text && (
           <div className="card" ref={barcodeRef}>
             <h3>Barcode ({barcodeType})</h3>
             <Barcode
               value={text}
               format={barcodeType}
               lineColor={barcodeColor}
-              text={text}
+              text={showBarcodeText ? text : ''}
               textColor={barcodeTextColor}
               width={2}
               height={100}
@@ -113,8 +159,8 @@ function App() {
             />
             <button className="download-btn" onClick={downloadBarcode}>Download Barcode</button>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Footer */}
       <footer className="footer">
