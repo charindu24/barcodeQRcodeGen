@@ -15,6 +15,7 @@ function App() {
   const barcodeRef = useRef();
 
   const downloadQRCode = () => {
+    if (!text) return;
     const canvas = qrRef.current.querySelector('canvas');
     const url = canvas.toDataURL('image/png');
     const link = document.createElement('a');
@@ -24,6 +25,7 @@ function App() {
   };
 
   const downloadBarcode = () => {
+    if (!text) return;
     const svg = barcodeRef.current.querySelector('svg');
     const xml = new XMLSerializer().serializeToString(svg);
     const svg64 = btoa(xml);
@@ -58,6 +60,7 @@ function App() {
         className="input-field"
       />
 
+      {/* Color Pickers */}
       <div className="color-picker">
         <label>
           QR Color:
@@ -77,6 +80,7 @@ function App() {
         </label>
       </div>
 
+      {/* Barcode Type */}
       <div className="type-selection">
         <label>
           Barcode Type:
@@ -91,30 +95,46 @@ function App() {
         </label>
       </div>
 
-      {text && (
-        <div className="cards">
-          <div className="card" ref={qrRef}>
-            <h3>QR Code</h3>
-            <QRCodeCanvas value={text} size={200} fgColor={qrColor} bgColor={qrBgColor} />
-            <button className="download-btn" onClick={downloadQRCode}>Download QR</button>
-          </div>
-
-          <div className="card" ref={barcodeRef}>
-            <h3>Barcode ({barcodeType})</h3>
-            <Barcode
-              value={text}
-              format={barcodeType}
-              lineColor={barcodeColor}
-              text={text}
-              textColor={barcodeTextColor}
-              width={2}
-              height={100}
-              displayValue={true}
-            />
-            <button className="download-btn" onClick={downloadBarcode}>Download Barcode</button>
-          </div>
+      {/* QR & Barcode Cards */}
+      <div className="cards">
+        <div className="card" ref={qrRef}>
+          <h3>QR Code</h3>
+          <QRCodeCanvas
+            value={text || ' '}
+            size={200}
+            fgColor={qrColor}
+            bgColor={qrBgColor}
+          />
+          <button
+            className="download-btn"
+            onClick={downloadQRCode}
+            disabled={!text}
+          >
+            Download QR
+          </button>
         </div>
-      )}
+
+        <div className="card" ref={barcodeRef}>
+          <h3>Barcode ({barcodeType})</h3>
+          <Barcode
+            value={text || ' '}
+            format={barcodeType}
+            lineColor={barcodeColor}
+            text={text || ' '}
+            textColor={barcodeTextColor}
+            width={2}
+            height={100}
+            displayValue={true}
+          />
+          <button
+            className="download-btn"
+            onClick={downloadBarcode}
+            disabled={!text}
+          >
+            Download Barcode
+          </button>
+        </div>
+      </div>
 
       {/* Footer */}
       <footer className="footer">
